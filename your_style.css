@@ -1,0 +1,89 @@
+/* your_style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  ul.sortable-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    cursor: move;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .details {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  span {
+    font-weight: bold;
+  }
+  
+  .uil-draggabledots {
+    font-size: 18px;
+    cursor: grab;
+  }
+  
+  .uil-draggabledots:active {
+    cursor: grabbing;
+  }
+
+  .details span:not(:last-child) {
+    margin-right: 8px;
+}
+
+/* Set font size for player name */
+.player-name {
+    font-size: 16px;
+}
+
+/* Set fixed height for player information box */
+.details {
+    height: 80px;
+    padding: 8px; /* Add padding to adjust spacing inside the box */
+    /* Optionally, you can also set a width for the box */
+    width: 500px;
+}
+
+.rankr-title {
+    text-align: center;
+    font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
+    font-size: 48px; /* Change the font size as needed */
+    margin: 20px 0; /* Adjust the margin for spacing */
+}
+  

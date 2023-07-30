@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Displaying Extracted Data</title>
+    <link rel="stylesheet" href="your_style.css">
+    <style>
+        /* Add the CSS styles for the player-container class */
+        .player-container {
+            display: flex;
+            align-items: center;
+            padding: 8px; /* Add padding for spacing */
+            border: 1px solid #ccc; /* Add border for visual separation */
+            margin-bottom: 4px; /* Add margin between player lines */
+        }
+
+        /* Additional styling for the item, details, and draggable dots */
+        .item {
+            cursor: move; /* Change cursor to indicate draggable item */
+        }
+
+        .details {
+            /* Your details styling */
+            margin-right: 8px; /* Add margin between image and player name */
+        }
+
+        .uil-draggabledots {
+            /* Your draggable dots styling */
+        }
+    </style>
+</head>
+<body>
+    <ul class="sortable-list" id="sortableListContainer">
+    </ul>
+
+    <script src="your_script.js"></script>
+</body>
+</html>
+
