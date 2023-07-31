@@ -79,7 +79,7 @@ function displayItemInHTML(playersData) {
       detailsDiv.className = 'details';
   
       const image = document.createElement('img');
-      image.src = `PlayerPictures/${encodeURIComponent(player.name)}.png`;
+      image.src = `PlayerPictures/${player.name.replace(/\s/g, '_')}.png`;
   
       const playerNameSpan = document.createElement('span');
       playerNameSpan.textContent = player.name;
