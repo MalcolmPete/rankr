@@ -107,48 +107,62 @@ function displayItemInHTML(playersData) {
     }
 }
 
+function handleReorder(event) {
+  const items = Array.from(event.to.children);
+  updateExtractedData(); // Update the extractedData array with the current order of players
+  saveOrderToLocalStorage(); // Save the order to localStorage
+  displayExtractedData(extractedData);
+
+  // Correct the variable names used for querying player elements
+  const playerNameElements = document.querySelectorAll('.player-name');
+  const playerPositionElements = document.querySelectorAll('.player-position');
+  const playerByeElements = document.querySelectorAll('.player-bye');
+
+  // Map the player elements to the extractedData array
+extractedData = Array.from(playerNameElements).map((playerName, index) => {
+    const name = playerName.textContent.replace('Player Name: ', '');
+    const position = playerPositionElements[index].textContent.replace('Position: ', '');
+    const bye = playerByeElements[index].textContent.replace('Bye: ', '');
+
+    return { name, position, bye };
+  });
+}
+
 // Event listeners for drag-and-drop functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const listContainer = document.getElementById('sortableListContainer');
-    let draggedItem = null;
-  
-    // Event listener for when a player line container is dragged
-    listContainer.addEventListener('dragstart', (event) => {
-      draggedItem = event.target.closest('.item');
-      event.dataTransfer.setData('text', ''); // Set data to enable dragging
-    });
-  
-    // Event listener for when a player line container is being dragged over another container
-    listContainer.addEventListener('dragover', (event) => {
-      event.preventDefault();
-      const overItem = event.target.closest('.item');
-      if (overItem && overItem !== draggedItem) {
-        const listRect = listContainer.getBoundingClientRect();
-        const overRect = overItem.getBoundingClientRect();
-        const draggedRect = draggedItem.getBoundingClientRect();
-  
-        if (event.clientY - listRect.top < (overRect.top - listRect.top) + (overRect.height / 2)) {
-          listContainer.insertBefore(draggedItem, overItem);
-        } else {
-          listContainer.insertBefore(draggedItem, overItem.nextElementSibling);
-        }
+  const listContainer = document.getElementById('sortableListContainer');
+  let draggedItem = null;
+
+  // Event listener for when a player line container is dragged
+  listContainer.addEventListener('dragstart', (event) => {
+    draggedItem = event.target.closest('.item');
+    event.dataTransfer.setData('text', ''); // Set data to enable dragging
+  });
+
+  // Event listener for when a player line container is being dragged over another container
+  listContainer.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    const overItem = event.target.closest('.item');
+    if (overItem && overItem !== draggedItem) {
+      const listRect = listContainer.getBoundingClientRect();
+      const overRect = overItem.getBoundingClientRect();
+      const draggedRect = draggedItem.getBoundingClientRect();
+
+      if (event.clientY - listRect.top < (overRect.top - listRect.top) + (overRect.height / 2)) {
+        listContainer.insertBefore(draggedItem, overItem);
+      } else {
+        listContainer.insertBefore(draggedItem, overItem.nextElementSibling);
       }
-    });
-  
-    // Event listener for when a player line container is dropped
-    listContainer.addEventListener('drop', (event) => {
-      event.preventDefault();
-    });
-  
-    // Event listener for when a player line container is dragged over
-    listContainer.addEventListener('dragend', (event) => {
-      event.preventDefault();
-      // Save the current player order to local storage
-      const playerOrder = Array.from(listContainer.children).map((item) => {
-        return item.querySelector('.player-name').textContent;
-      });
-      localStorage.setItem(localStorageKey, JSON.stringify(playerOrder));
-    });
+    }
+  });
+
+  // Event listener for when a player line container is dropped
+  listContainer.addEventListener('drop', (event) => {
+    event.preventDefault();
+  });
+
+  // Event listener for when a player line container is dragged over
+  listContainer.addEventListener('dragend', handleReorder); // Use the handleReorder function here
 });
   
 
