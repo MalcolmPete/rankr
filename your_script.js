@@ -108,24 +108,29 @@ function displayItemInHTML(playersData) {
 }
 
 function handleReorder(event) {
-  const items = Array.from(event.to.children);
-  updateExtractedData(); // Update the extractedData array with the current order of players
-  saveOrderToLocalStorage(); // Save the order to localStorage
-  displayExtractedData(extractedData);
+  if (!event.target.classList.contains('item')) {
+    return; // Skip if the dragged element is not a player item
+  }
 
-  // Correct the variable names used for querying player elements
+  const listContainer = document.getElementById('sortableListContainer');
   const playerNameElements = document.querySelectorAll('.player-name');
   const playerPositionElements = document.querySelectorAll('.player-position');
   const playerByeElements = document.querySelectorAll('.player-bye');
 
   // Map the player elements to the extractedData array
-extractedData = Array.from(playerNameElements).map((playerName, index) => {
+  extractedData = Array.from(playerNameElements).map((playerName, index) => {
     const name = playerName.textContent.replace('Player Name: ', '');
     const position = playerPositionElements[index].textContent.replace('Position: ', '');
     const bye = playerByeElements[index].textContent.replace('Bye: ', '');
 
     return { name, position, bye };
   });
+
+  // Save the current player order to local storage
+  const playerOrder = Array.from(listContainer.children).map((item) => {
+    return item.querySelector('.player-name').textContent;
+  });
+  localStorage.setItem(localStorageKey, JSON.stringify(playerOrder));
 }
 
 // Event listeners for drag-and-drop functionality
