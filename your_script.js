@@ -1,48 +1,50 @@
 const sleeperUrl = "https://api.sleeper.app/v1/league/968222929374822400";
 const backendURL = 'http://localhost:3000';
 const localStorageKey = 'playerOrder'; // Define a key for local storage
+let extractedData = []; // Declare extractedData outside the function scope
 
 async function getLeagueInfo() {
-    // Fetches the URL
-    const response = await fetch(sleeperUrl);
+  // Fetches the URL
+  const response = await fetch(sleeperUrl);
 
-    // Parse the response into JSON
-    const data = await response.json();
+  // Parse the response into JSON
+  const data = await response.json();
 
-    // Number of teams in the league, needed for ADP API request
-    const numOfTeams = data.total_rosters;
+  // Number of teams in the league, needed for ADP API request
+  const numOfTeams = data.total_rosters;
 
-    // Current year / season
-    const season = data.season;
+  // Current year / season
+  const season = data.season;
 
-    // Get ADP info based on league settings
-    const scoring = data.scoring_settings.rec;
-    let scoringName = "";
-    if (scoring === 0) {
-        scoringName = "standard";
-    } else if (scoring === 0.5) {
-        scoringName = "half-ppr";
-    } else {
-        scoringName = "ppr";
-    }
+  // Get ADP info based on league settings
+  const scoring = data.scoring_settings.rec;
+  let scoringName = "";
+  if (scoring === 0) {
+    scoringName = "standard";
+  } else if (scoring === 0.5) {
+    scoringName = "half-ppr";
+  } else {
+    scoringName = "ppr";
+  }
 
-    await getADPInfo(scoringName, numOfTeams, season);
+  extractedData = await getADPInfo(scoringName, numOfTeams, season); // Store the extracted data in the outer scope
+  displayItemInHTML(extractedData);
 }
 
 async function getADPInfo(scoringName, numOfTeams, season) {
-    const adpURL = `${backendURL}/api/adp/${scoringName}?teams=${numOfTeams}&year=${season}`;
-    const adpResponse = await fetch(adpURL);
-    const ADPdata = await adpResponse.json();
-  
-    const extractedData = [];
-    for (let i = 0; i < 10; i++) { // Fetch data for 10 players
-      const { name, position, bye } = ADPdata.players[i];
-      const itemWithIndex = { index: i + 1, name, position, bye };
-      extractedData.push(itemWithIndex);
-    }
-  
-    displayItemInHTML(extractedData);
-}  
+  const adpURL = `${backendURL}/api/adp/${scoringName}?teams=${numOfTeams}&year=${season}`;
+  const adpResponse = await fetch(adpURL);
+  const ADPdata = await adpResponse.json();
+
+  const extractedData = [];
+  for (let i = 0; i < 10; i++) { // Fetch data for 10 players
+    const { name, position, bye } = ADPdata.players[i];
+    const itemWithIndex = { index: i + 1, name, position, bye };
+    extractedData.push(itemWithIndex);
+  }
+
+  return extractedData; // Return the extracted data
+}
 
 function displayItemInHTML(playersData) {
     const listContainer = document.getElementById('sortableListContainer');
@@ -113,22 +115,10 @@ function handleReorder(event) {
   }
 
   const listContainer = document.getElementById('sortableListContainer');
-  const playerNameElements = document.querySelectorAll('.player-name');
-  const playerPositionElements = document.querySelectorAll('.player-position');
-  const playerByeElements = document.querySelectorAll('.player-bye');
-
-  // Map the player elements to the extractedData array
-  extractedData = Array.from(playerNameElements).map((playerName, index) => {
-    const name = playerName.textContent.replace('Player Name: ', '');
-    const position = playerPositionElements[index].textContent.replace('Position: ', '');
-    const bye = playerByeElements[index].textContent.replace('Bye: ', '');
-
-    return { name, position, bye };
-  });
 
   // Save the current player order to local storage
-  const playerOrder = Array.from(listContainer.children).map((item) => {
-    return item.querySelector('.player-name').textContent;
+  const playerOrder = extractedData.map((player) => {
+    return player.name;
   });
   localStorage.setItem(localStorageKey, JSON.stringify(playerOrder));
 }
@@ -170,5 +160,4 @@ document.addEventListener('DOMContentLoaded', () => {
   listContainer.addEventListener('dragend', handleReorder); // Use the handleReorder function here
 });
   
-
 getLeagueInfo();
