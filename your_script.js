@@ -161,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function exportDataToExcel(data) {
-    const XLSX = require('xlsx');
-    const { saveAs } = require('file-saver');
+    const XLSX = window.XLSX; // Access the XLSX object from the global window object
+    const { saveAs } = window.require('file-saver'); // Use window.require to access the require function
 
     // Create a new workbook and worksheet
     const workbook = XLSX.utils.book_new();
