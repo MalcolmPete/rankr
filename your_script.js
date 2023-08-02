@@ -36,12 +36,10 @@ async function getADPInfo(scoringName, numOfTeams, season) {
   const adpResponse = await fetch(adpURL);
   const ADPdata = await adpResponse.json();
 
-  const extractedData = [];
-  for (let i = 0; i < 10; i++) { // Fetch data for 10 players
-    const { name, position, bye } = ADPdata.players[i];
-    const itemWithIndex = { index: i + 1, name, position, bye };
-    extractedData.push(itemWithIndex);
-  }
+  const extractedData = ADPdata.players.map((player, index) => {
+    const { name, position, bye, team, adp_formatted } = player;
+    return { index: index + 1, name, position, bye, team, adp_formatted };
+  });
 
   return extractedData; // Return the extracted data
 }
@@ -93,10 +91,18 @@ function displayItemInHTML(playersData) {
       const positionSpan = document.createElement('span');
       positionSpan.textContent = `Position: ${player.position}`;
   
+      const teamSpan = document.createElement('span');
+      teamSpan.textContent = `Team: ${player.team}`;
+
+      const adpFormattedSpan = document.createElement('span');
+      adpFormattedSpan.textContent = `ADP: ${player.adp_formatted}`;
+
       detailsDiv.appendChild(image);
       detailsDiv.appendChild(playerNameSpan);
       detailsDiv.appendChild(byeSpan);
       detailsDiv.appendChild(positionSpan);
+      detailsDiv.appendChild(teamSpan); // Add team information to details
+      detailsDiv.appendChild(adpFormattedSpan); // Add adp_formatted information to details
   
       const draggableDotsIcon = document.createElement('i');
       draggableDotsIcon.className = 'uil uil-draggabledots';
