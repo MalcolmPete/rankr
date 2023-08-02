@@ -161,43 +161,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function exportDataToExcel(data) {
-  const XLSX = window.XLSX; // Access the XLSX object from the global window object
+  const XLSX = window.XLSX; // Access XLSX library from the global object
 
-  // Check if data is an array
-  if (!Array.isArray(data)) {
-    console.error('Invalid data format. Expected an array.');
-    return;
-  }
+  // Create the worksheet from the data
+  const worksheet = XLSX.utils.json_to_sheet(data);
 
-  // Check if data is not empty
-  if (data.length === 0) {
-    console.error('Data is empty.');
-    return;
-  }
-
-  // Ensure data is in the correct format (array of arrays)
-  const headers = ['Player Name', 'Position', 'Bye'];
-  const dataArray = [headers, ...data.map((player) => [player.name, player.position, player.bye])];
-
-  // Create a new workbook and worksheet
+  // Create a new workbook and add the worksheet to it
   const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.aoa_to_sheet(dataArray);
-
-  // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Player Data');
 
-  // Convert the workbook to an Excel file
+  // Convert the workbook to an XLSX file
   const excelFile = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
 
-  // Save the Excel file using FileSaver.js
+  // Convert the array to a Blob
   const blob = new Blob([excelFile], { type: 'application/octet-stream' });
 
-  // Check if the FileSaver object exists and the saveAs function is available
-  if (typeof window.FileSaver !== 'undefined' && typeof window.FileSaver.saveAs === 'function') {
-    window.FileSaver.saveAs(blob, 'player_data.xlsx');
-  } else {
-    console.error('FileSaver.js library is not loaded.');
-  }
+  // Create a temporary download link
+  const url = URL.createObjectURL(blob);
+
+  // Create an anchor element to trigger the download
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'player_data.xlsx';
+
+  // Append the anchor element to the document and trigger the download
+  document.body.appendChild(a);
+  a.click();
+
+  // Remove the anchor element and revoke the URL to free resources
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 // Event listener for the "Export to Excel" button click
