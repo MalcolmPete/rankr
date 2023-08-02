@@ -80,6 +80,12 @@ body {
     width: 500px;
 }
 
+.export-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 .rankr-title {
     text-align: center;
     font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
