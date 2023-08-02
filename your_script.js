@@ -52,6 +52,11 @@ function displayItemInHTML(playersData) {
     header.textContent = 'rankr';
     header.className = 'rankr-title'; // Add a class for styling the title
     listContainer.insertBefore(header, listContainer.firstChild);
+
+    const alphaHeader = document.createElement('h2');
+    alphaHeader.textContent = 'alpha build';
+    alphaHeader.className = 'alpha-header'; // Add a class for styling the alpha header
+    listContainer.insertBefore(alphaHeader, header.nextSibling);
   
     // Retrieve the saved player order from local storage
     const savedPlayerOrder = JSON.parse(localStorage.getItem(localStorageKey));
