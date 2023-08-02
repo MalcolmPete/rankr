@@ -182,14 +182,7 @@ function exportDataToExcel(data) {
 // Event listener for the "Export to Excel" button click
 const exportButton = document.getElementById('exportButton');
 exportButton.addEventListener('click', () => {
-    const playerElements = document.querySelectorAll('.player-container');
-    const data = Array.from(playerElements).map((playerElement) => {
-        const playerName = playerElement.querySelector('.player-name').textContent;
-        const playerPosition = playerElement.querySelector('.player-position').textContent.replace('Position: ', '');
-        const playerBye = playerElement.querySelector('.player-bye').textContent.replace('Bye: ', '');
-        return [playerName, playerPosition, playerBye];
-    });
-    exportDataToExcel(data);
+    exportDataToExcel(extractedData);
 });
   
 getLeagueInfo();
