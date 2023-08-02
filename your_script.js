@@ -163,9 +163,25 @@ document.addEventListener('DOMContentLoaded', () => {
 function exportDataToExcel(data) {
   const XLSX = window.XLSX; // Access the XLSX object from the global window object
 
+  // Check if data is an array
+  if (!Array.isArray(data)) {
+    console.error('Invalid data format. Expected an array.');
+    return;
+  }
+
+  // Check if data is not empty
+  if (data.length === 0) {
+    console.error('Data is empty.');
+    return;
+  }
+
+  // Ensure data is in the correct format (array of arrays)
+  const headers = ['Player Name', 'Position', 'Bye'];
+  const dataArray = [headers, ...data.map((player) => [player.name, player.position, player.bye])];
+
   // Create a new workbook and worksheet
   const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.aoa_to_sheet([['Player Name', 'Position', 'Bye'], ...data]);
+  const worksheet = XLSX.utils.aoa_to_sheet(dataArray);
 
   // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Player Data');
@@ -175,7 +191,13 @@ function exportDataToExcel(data) {
 
   // Save the Excel file using FileSaver.js
   const blob = new Blob([excelFile], { type: 'application/octet-stream' });
-  window.saveAs(blob, 'player_data.xlsx');
+
+  // Check if the FileSaver object exists and the saveAs function is available
+  if (typeof window.FileSaver !== 'undefined' && typeof window.FileSaver.saveAs === 'function') {
+    window.FileSaver.saveAs(blob, 'player_data.xlsx');
+  } else {
+    console.error('FileSaver.js library is not loaded.');
+  }
 }
 
 // Event listener for the "Export to Excel" button click
