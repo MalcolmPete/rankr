@@ -187,13 +187,17 @@ function exportDataToExcel(data) {
   // Convert the array to a Blob
   const blob = new Blob([excelFile], { type: 'application/octet-stream' });
 
+  // Generate the Excel file name with the current date
+  const currentDate = new Date().toLocaleDateString().replace(/\//g, '-');
+  const fileName = `rankr Fantasy Cheat Sheet ${currentDate}.xlsx`;
+
   // Create a temporary download link
   const url = URL.createObjectURL(blob);
 
   // Create an anchor element to trigger the download
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'player_data.xlsx';
+  a.download = fileName;
 
   // Append the anchor element to the document and trigger the download
   document.body.appendChild(a);
