@@ -161,24 +161,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function exportDataToExcel(data) {
-    const XLSX = window.XLSX; // Access the XLSX object from the global window object
-    const { saveAs } = window.require('file-saver'); // Use window.require to access the require function
+  const XLSX = window.XLSX; // Access the XLSX object from the global window object
 
-    // Create a new workbook and worksheet
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(data, {
-      header: ['name', 'position', 'bye'], // Set the headers for the columns
-    });
+  // Create a new workbook and worksheet
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([['Player Name', 'Position', 'Bye'], ...data]);
 
-    // Add the worksheet to the workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Player Data');
+  // Add the worksheet to the workbook
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Player Data');
 
-    // Convert the workbook to an Excel file
-    const excelFile = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+  // Convert the workbook to an Excel file
+  const excelFile = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
 
-    // Save the Excel file
-    const blob = new Blob([excelFile], { type: 'application/octet-stream' });
-    saveAs(blob, 'player_data.xlsx');
+  // Save the Excel file using FileSaver.js
+  const blob = new Blob([excelFile], { type: 'application/octet-stream' });
+  window.saveAs(blob, 'player_data.xlsx');
 }
 
 // Event listener for the "Export to Excel" button click
