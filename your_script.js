@@ -37,7 +37,7 @@ async function getADPInfo(scoringName, numOfTeams, season) {
   const ADPdata = await adpResponse.json();
 
   const extractedData = [];
-  for (let i = 0; i < 100; i++) { // Fetch data for 10 players
+  for (let i = 0; i < 10; i++) { // Fetch data for 10 players
     const { name, position, bye } = ADPdata.players[i];
     const itemWithIndex = { index: i + 1, name, position, bye };
     extractedData.push(itemWithIndex);
