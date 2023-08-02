@@ -117,8 +117,10 @@ function handleReorder(event) {
   const listContainer = document.getElementById('sortableListContainer');
 
   // Save the current player order to local storage
-  const playerOrder = extractedData.map((player) => {
-    return player.name;
+  const playerElements = listContainer.querySelectorAll('.player-container');
+  const playerOrder = Array.from(playerElements).map((playerElement) => {
+    const playerName = playerElement.querySelector('.player-name').textContent;
+    return playerName;
   });
   localStorage.setItem(localStorageKey, JSON.stringify(playerOrder));
 }
@@ -154,10 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listener for when a player line container is dropped
   listContainer.addEventListener('drop', (event) => {
     event.preventDefault();
+
+    // Update the order in the local storage after the drop is complete
+    handleReorder(event);
   });
 
   // Event listener for when a player line container is dragged over
-  listContainer.addEventListener('dragend', handleReorder); // Use the handleReorder function here
+  listContainer.addEventListener('dragend', handleReorder);
 });
 
 function exportDataToExcel(data) {
