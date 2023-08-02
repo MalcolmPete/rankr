@@ -159,5 +159,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listener for when a player line container is dragged over
   listContainer.addEventListener('dragend', handleReorder); // Use the handleReorder function here
 });
+
+function exportDataToExcel(data) {
+    const XLSX = require('xlsx');
+    const { saveAs } = require('file-saver');
+  
+    // Create a new workbook and worksheet
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([['Player Name', 'Position', 'Bye'], ...data]);
+  
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Player Data');
+  
+    // Convert the workbook to an Excel file
+    const excelFile = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+  
+    // Save the Excel file
+    const blob = new Blob([excelFile], { type: 'application/octet-stream' });
+    saveAs(blob, 'player_data.xlsx');
+}
+
+// Event listener for the "Export to Excel" button click
+const exportButton = document.getElementById('exportButton');
+exportButton.addEventListener('click', () => {
+    const playerElements = document.querySelectorAll('.player-container');
+    const data = Array.from(playerElements).map((playerElement) => {
+        const playerName = playerElement.querySelector('.player-name').textContent;
+        const playerPosition = playerElement.querySelector('.player-position').textContent.replace('Position: ', '');
+        const playerBye = playerElement.querySelector('.player-bye').textContent.replace('Bye: ', '');
+        return [playerName, playerPosition, playerBye];
+    });
+    exportDataToExcel(data);
+});
   
 getLeagueInfo();
