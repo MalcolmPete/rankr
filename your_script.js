@@ -318,7 +318,7 @@ function exportDataToExcel(data) {
   const workbook = XLSX.utils.book_new();
 
   // Create separate sheets for each position
-  const positions = ['All', 'QB', 'RB', 'WR', 'TE'];
+  const positions = ['All', 'QB', 'RB', 'WR', 'TE', 'PK', 'DEF'];
   positions.forEach(position => {
     const filteredData = position === 'All' ? data : data.filter(player => player.position === position);
     const worksheet = XLSX.utils.json_to_sheet(filteredData);
