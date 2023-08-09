@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>rankr</title>
+    <title>rankr (alpha)</title>
     <link rel="stylesheet" href="your_style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Add the CSS styles for the player-container class */
         .player-container {
@@ -31,14 +30,24 @@
             /* Your draggable dots styling */
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <button id="exportButton" class="export-button">Export to Excel</button>
+    <div class="buttons-container">
+        <button class="position-button" data-position="All">All</button>
+        <button class="position-button" data-position="QB">QB</button>
+        <button class="position-button" data-position="RB">RB</button>
+        <button class="position-button" data-position="WR">WR</button>
+        <button class="position-button" data-position="TE">TE</button>
+        <button id="exportButton">Export to Excel</button>
+        <input type="file" id="uploadExcelInput" accept=".xlsx, .xls" />
+        <button id="uploadExcelButton">Upload Excel</button>
+    </div>
     <ul class="sortable-list" id="sortableListContainer">
     </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="FileSaver.js"></script>
     <script src="your_script.js"></script>
-    <script src="xlsx.full.min.js"></script>
 </body>
 </html>
 
