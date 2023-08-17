@@ -1,17 +1,14 @@
-/* your_style.css */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  background-color: #1f2431;
 }
 
 .player-container {
   display: flex;
   align-items: center;
   padding: 8px; /* Add padding for spacing */
-  border: 1px solid rgb(0, 0, 0); /* Add border for visual separation */
   margin-bottom: 4px; /* Add margin between player lines */
   border-radius: 20px; /* Add rounded corners */
 }
@@ -31,6 +28,7 @@ ul.sortable-list {
 
 .item {
   cursor: move;
+  color: azure;
   /*background-color: #fff;
   border: 1px solid #ccc;*/
   border-radius: 4px;
@@ -86,12 +84,14 @@ span {
 
 .rankr-title {
   text-align: center;
+  color: white;
   font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
   font-size: 48px; /* Change the font size as needed */
   margin: 20px 0; /* Adjust the margin for spacing */
 }
 
 .alpha-header{
+color: white;
 text-align: center;
 font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
 font-size: 30px; /* Change the font size as needed */
@@ -107,5 +107,27 @@ margin: 20px 0; /* Adjust the margin for spacing */
 
 #uploadExcelInput {
   display: none;
+}
+
+.player-container.wr {
+  /*box-shadow: 0px 0px 5px 2px rgb(33, 144, 255);*/
+  /* in order: x offset, y offset, blur size, spread size, color */
+  /* blur size and spread size are optional (they default to 0) */
+  background-color: #344054;
+}
+
+.player-container.qb {
+  /*box-shadow: 0px 0px 5px 2px rgb(213, 27, 27);*/
+  background-color: #344054;
+}
+
+.player-container.rb {
+  /*box-shadow: 0px 0px 5px 2px rgb(19, 211, 77);*/
+  background-color: #344054;
+}
+
+.player-container.te {
+  /*box-shadow: 0px 0px 5px 2px rgb(223, 182, 0);*/
+  background-color: #344054;
 }
   
