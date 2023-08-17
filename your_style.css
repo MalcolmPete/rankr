@@ -130,4 +130,117 @@ margin: 20px 0; /* Adjust the margin for spacing */
   /*box-shadow: 0px 0px 5px 2px rgb(223, 182, 0);*/
   background-color: #344054;
 }
+
+.player-container.pk {
+  /*box-shadow: 0px 0px 5px 2px rgb(223, 182, 0);*/
+  background-color: #344054;
+}
+
+.player-container.def {
+  /*box-shadow: 0px 0px 5px 2px rgb(223, 182, 0);*/
+  background-color: #344054;
+}
+
+/* Add styles for the buttons */
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px; /* Add spacing between buttons */
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.position-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.position-button[data-position="All"] {
+  background-color: #007bff; /* Change color for "All" button */
+}
+
+.position-button:hover {
+  background-color: #325ab6;
+}
+
+.position-button[data-position="QB"] {
+  background-color: #bd2323; /* Change color for "All" button */
+}
+
+.position-button[data-position="QB"]:hover {
+  background-color: #8a1212; /* Change color for "All" button */
+}
+
+.position-button[data-position="RB"] {
+  background-color: #1abc4b; /* Change color for "All" button */
+}
+
+.position-button[data-position="RB"]:hover {
+  background-color: #10773f; /* Change color for "All" button */
+}
+
+.position-button[data-position="WR"] {
+  background-color: #2f7ae2; /* Change color for "All" button */
+}
+
+.position-button[data-position="WR"]:hover {
+  background-color: #1647b1; /* Change color for "All" button */
+}
+
+.position-button[data-position="TE"] {
+  background-color: #ffae58; /* Change color for "All" button */
+}
+
+.position-button[data-position="TE"]:hover {
+  background-color: #ce7a21; /* Change color for "All" button */
+}
+
+.position-button[data-position="PK"] {
+  background-color: #bd66ff; /* Change color for "All" button */
+}
+
+.position-button[data-position="PK"]:hover {
+  background-color: #a642f2; /* Change color for "All" button */
+}
+
+.position-button[data-position="DEF"] {
+  background-color: #7988a1; /* Change color for "All" button */
+}
+
+.position-button[data-position="DEF"]:hover {
+  background-color: #647797; /* Change color for "All" button */
+}
+
+#exportButton,
+#uploadExcelButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#exportButton:hover,
+#uploadExcelButton:hover {
+  background-color: #0056b3;
+}
+
+#uploadExcelInput {
+  display: none;
+}
   
