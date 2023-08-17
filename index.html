@@ -33,25 +33,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class="headers-buttons-container">
+    <div class="header-buttons-container">
+        <!-- Alpha Build header -->
         <h1 class="rankr-title">rankr</h1>
         <h1 class="alpha-header">alpha build</h1>
-        <button class="position-button" data-position="All">All</button>
-        <button class="position-button" data-position="QB">QB</button>
-        <button class="position-button" data-position="RB">RB</button>
-        <button class="position-button" data-position="WR">WR</button>
-        <button class="position-button" data-position="TE">TE</button>
-        <button class="position-button" data-position="PK">PK</button>
-        <button class="position-button" data-position="DEF">DEF</button>
-        <button id="exportButton">Export to Excel</button>
-        <input type="file" id="uploadExcelInput" accept=".xlsx, .xls" />
-        <button id="uploadExcelButton">Upload Excel</button>
+        
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <button class="position-button" data-position="All">All</button>
+            <button class="position-button" data-position="QB">QB</button>
+            <button class="position-button" data-position="RB">RB</button>
+            <button class="position-button" data-position="WR">WR</button>
+            <button class="position-button" data-position="TE">TE</button>
+            <button class="position-button" data-position="PK">PK</button>
+            <button class="position-button" data-position="DEF">DEF</button>
+            <button id="exportButton">Export to Excel</button>
+            <input type="file" id="uploadExcelInput" accept=".xlsx, .xls" />
+            <button id="uploadExcelButton">Upload Excel</button>
+        </div>
     </div>
     <ul class="sortable-list" id="sortableListContainer">
     </ul>
+    
+    <!-- Add the new container for the filtered view -->
+    <div class="sortable-list" id="positionFilteredContainer"></div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="FileSaver.js"></script>
     <script src="your_script.js"></script>
 </body>
 </html>
-
