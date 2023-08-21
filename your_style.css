@@ -85,7 +85,7 @@ span {
 .rankr-title {
   text-align: center;
   color: white;
-  font-family: Rubik Mono One /* Change the font-family to your desired fun font */
+  font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
   font-size: 48px; /* Change the font size as needed */
   margin: 20px 0; /* Adjust the margin for spacing */
 }
@@ -93,7 +93,7 @@ span {
 .alpha-header{
 color: white;
 text-align: center;
-font-family: Rubik Mono One; /* Change the font-family to your desired fun font */
+font-family: Copperplate, Papyrus, fantasy; /* Change the font-family to your desired fun font */
 font-size: 30px; /* Change the font size as needed */
 margin: 20px 0; /* Adjust the margin for spacing */
 }
