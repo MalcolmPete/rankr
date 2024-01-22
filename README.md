@@ -1,6 +1,10 @@
 # rankr
 Fantasy football player ranker (alpha)
 
+**IMPORTANT**
+Project is currently inactive as fantasy ADPs are not available anymore.
+We'll be back next season!
+
 Future additions:
 - Mobile support / App
 - Popup that explains how to use the website
